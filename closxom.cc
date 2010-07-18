@@ -9,7 +9,7 @@ void Closxom::CollectEntries(const std::string datetime) {
 
 const std::string Closxom::RenderEntries() {
     std::string rootpath = this->config().rootpath();
-    std::ifstream entry_ifs((rootpath+std::string("../templates/entry.html")).c_str());
+    std::ifstream entry_ifs((rootpath+std::string("../templates/entry.")+this->flavour()).c_str());
     std::stringstream entry_sstream;
     entry_sstream << entry_ifs.rdbuf();
     const char* entry_format = entry_sstream.str().c_str();
@@ -22,7 +22,7 @@ const std::string Closxom::RenderEntries() {
         entries_content.append(std::string(buf));
     }
 
-    std::ifstream whole_ifs((rootpath+std::string("../templates/template.html")).c_str());
+    std::ifstream whole_ifs((rootpath+std::string("../templates/template.")+this->flavour()).c_str());
     std::stringstream whole_sstream;
     whole_sstream << whole_ifs.rdbuf();
     const char* whole_format = whole_sstream.str().c_str();
@@ -39,8 +39,15 @@ void Closxom::Dispatch() {
     if (path_info != "/index") {
         for (int i = 1; i < path_info.length(); i++) {
             if (path_info[i] == '/') continue;
+            if (path_info[i] == '.') { // flavour
+                this->set_flavour(path_info.substr(i+1, path_info.length()-1));
+                break;
+            }
             datetime.push_back(path_info[i]);
         }
+    }
+    if (this->flavour() == "") {
+        this->set_flavour(std::string("html"));
     }
     Collector* collector = new Collector(this->config());
     this->CollectEntries(datetime);

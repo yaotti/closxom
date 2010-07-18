@@ -6,10 +6,11 @@
 namespace closxom {
 class Closxom {
 public:
-    Closxom(const Config& config, std::string flavour) : config_(config), flavour_(flavour) {};
+    Closxom(const Config& config) : config_(config) {};
     inline std::vector<entry_ptr> entries() { return entries_; };
     inline void set_entries(std::vector<entry_ptr> entries) { entries_ = entries; };
     inline Config config() { return config_; };
+    inline void set_flavour(const std::string flavour) { flavour_ = flavour; };
     inline std::string flavour() { return flavour_; };
     //virtual ~Closxom();
     void CollectEntries(const std::string datetime);
@@ -17,7 +18,7 @@ public:
     void Dispatch();
 private:
     const Config config_;
-    const std::string flavour_;
+    std::string flavour_;
     std::vector<entry_ptr> entries_;
 };
 } // namespace closxom
