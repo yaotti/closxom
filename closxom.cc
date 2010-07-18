@@ -33,4 +33,18 @@ const std::string Closxom::RenderEntries() {
     return content;
 }
 
+void Closxom::Dispatch() {
+    std::string path_info(getenv("PATH_INFO"));
+    std::string datetime("");
+    if (path_info != "/index") {
+        for (int i = 1; i < path_info.length(); i++) {
+            if (path_info[i] == '/') continue;
+            datetime.push_back(path_info[i]);
+        }
+    }
+    Collector* collector = new Collector(this->config());
+    this->CollectEntries(datetime);
+    puts(this->RenderEntries().c_str());
+}
+
 } // namespace closxom

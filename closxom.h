@@ -14,6 +14,7 @@ public:
     //virtual ~Closxom();
     void CollectEntries(const std::string datetime);
     const std::string RenderEntries();
+    void Dispatch();
 private:
     const Config config_;
     const std::string flavour_;
