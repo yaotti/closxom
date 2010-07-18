@@ -1,8 +1,16 @@
 #include <sys/dir.h>
+#include <functional>
 
 #include "closxom_collector.h"
 
 namespace closxom {
+class EntryDateSorter : public std::binary_function<entry_ptr, entry_ptr, bool> {
+public:
+    bool operator()(const entry_ptr& a, const entry_ptr& b) {
+        return (a->modified_datetime() < b->modified_datetime());
+    }
+};
+
 const std::vector<entry_ptr> Collector::GetFilteredEntries(const std::string datetime) {
     std::vector<std::string> entry_paths = this->GetEntryPaths("");
     std::vector<entry_ptr> entries;
@@ -12,6 +20,7 @@ const std::vector<entry_ptr> Collector::GetFilteredEntries(const std::string dat
         if (datetime != "" && entry->modified_datetime().compare(0, datetime.length(), datetime) != 0) continue;
         entries.push_back(entry_ptr(entry));
     }
+    sort(entries.begin(), entries.end(), EntryDateSorter()); // sort by mtime
     return entries;
 }
 
