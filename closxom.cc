@@ -16,10 +16,11 @@ const std::string Closxom::RenderEntries() {
     std::string entry_format_string = entry_sstream.str();
     for (int i = 0; i < (int)this->entries().size(); i++) {
         const char* const entry_format = entry_format_string.c_str(); // ループ外に出すとconstなのに書き換えられてしまう
-        Entry entry = *(this->entries()[i]);
+        Entry *entry = this->entries()[i].get();
         char buf[2048];         // XXX
-        sprintf(buf, entry_format, entry.title().c_str(), entry.body().c_str(), entry.modified_datetime().c_str());
+        sprintf(buf, entry_format, entry->title().c_str(), entry->body().c_str(), entry->modified_datetime().c_str());
         entries_content.append(std::string(buf));
+        delete entry;
     }
 
     std::ifstream whole_ifs((rootpath+std::string("../templates/template.")+this->flavour()).c_str());
