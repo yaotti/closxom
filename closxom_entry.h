@@ -34,6 +34,7 @@ public:
         const struct tm *clock = gmtime(&(attrib.st_mtime));
         char datetime[15];           /* YYYYMMDDHHMMSS */
         sprintf(datetime, "%04d%02d%02d%02d%02d%02d", clock->tm_year+1900, clock->tm_mon+1, clock->tm_mday, clock->tm_hour, clock->tm_min, clock->tm_sec);
+        delete clock;
         modified_datetime_ = std::string(datetime);
     };
     Entry(const std::string title, const std::string body, const std::string modified_datetime)

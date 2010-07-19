@@ -5,6 +5,7 @@ void Closxom::CollectEntries(const std::string datetime) {
     Collector* collector = new Collector(this->config());
     const std::vector<entry_ptr> entries = collector->GetFilteredEntries(datetime);
     this->set_entries(entries);
+    delete collector;
 }
 
 const std::string Closxom::RenderEntries() {
@@ -18,7 +19,8 @@ const std::string Closxom::RenderEntries() {
         const char* const entry_format = entry_format_string.c_str(); // ループ外に出すとconstなのに書き換えられてしまう
         Entry *entry = this->entries()[i].get();
         char buf[2048];         // XXX
-        sprintf(buf, entry_format, entry->title().c_str(), entry->body().c_str(), entry->modified_datetime().c_str());
+        sprintf(buf, entry_format, entry->title().c_str(), entry->body().c_str(), entry->modified_datetime().c_str()); // TODO: newline2br
+        delete entry_format;
         entries_content.append(std::string(buf));
         delete entry;
     }
@@ -30,6 +32,7 @@ const std::string Closxom::RenderEntries() {
 
     char buf[8192];         // XXX
     sprintf(buf, whole_format, entries_content.c_str());
+    delete whole_format;
     std::string header("content-type:text/"); // content-type
     header.append(this->flavour());
     header.append("\n\n");
@@ -56,6 +59,7 @@ void Closxom::Dispatch() {
     Collector* collector = new Collector(this->config());
     this->CollectEntries(datetime);
     puts(this->RenderEntries().c_str());
+    delete collector;
 }
 
 } // namespace closxom

@@ -52,6 +52,7 @@ std::vector<std::string> Collector::GetEntryPaths(const std::string rootpath) {
             entry_paths.push_back(file_path);
         }
     }
+    delete dp;
     return entry_paths;
 }
 }

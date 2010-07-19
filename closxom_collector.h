@@ -22,9 +22,3 @@ private:
 } // namespace closxom
 
 #endif
-
-
-
-
-
-
