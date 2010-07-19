@@ -29,7 +29,10 @@ const std::string Closxom::RenderEntries() {
 
     char buf[8192];         // XXX
     sprintf(buf, whole_format, entries_content.c_str());
-    const std::string content(buf);
+    std::string header("content-type:text/"); // content-type
+    header.append(this->flavour());
+    header.append("\n\n");
+    const std::string content(header+std::string(buf));
     return content;
 }
 
