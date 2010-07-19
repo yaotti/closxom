@@ -1,0 +1,15 @@
+- This program fills the requirements: 
+http://coderepos.org/share/wiki/BlosxomClones
+- no plugin system
+- using no boost library
+
+
+download and exec
+$ make
+
+if you are MacOSX user then do this
+$ make macosx
+and visit
+http://localhost/cgi-bin/closxom.cgi/
+http://localhost/cgi-bin/closxom.cgi/2010.html
+http://localhost/cgi-bin/closxom.cgi/2010.xml
