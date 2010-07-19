@@ -15,10 +15,10 @@ const std::vector<entry_ptr> Collector::GetFilteredEntries(const std::string dat
     std::vector<std::string> entry_paths = this->GetEntryPaths("");
     std::vector<entry_ptr> entries;
     for (int i = 0; i < (int)entry_paths.size(); i++) {
-        Entry *entry = new Entry(entry_paths[i]);
+        entry_ptr entry_p = entry_ptr(new Entry(entry_paths[i]));
         // filtering by datetime
-        if (datetime != "" && entry->modified_datetime().compare(0, datetime.length(), datetime) != 0) continue;
-        entries.push_back(entry_ptr(entry));
+        if (datetime != "" && entry_p.get()->modified_datetime().compare(0, datetime.length(), datetime) != 0) continue;
+        entries.push_back(entry_p);
     }
     sort(entries.begin(), entries.end(), EntryDateSorter()); // sort by mtime
     return entries;
