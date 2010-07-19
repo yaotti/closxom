@@ -38,7 +38,7 @@ public:
     };
     Entry(const std::string title, const std::string body, const std::string modified_datetime)
         : title_(title), body_(body), modified_datetime_(modified_datetime) {};
-    //virtual ~Entry() {};
+    virtual ~Entry() {};
     inline const std::string title() { return title_; };
     inline const std::string body() { return body_; };
     inline const std::string modified_datetime() { return modified_datetime_; };

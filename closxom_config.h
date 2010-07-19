@@ -6,7 +6,7 @@ namespace closxom {
 class Config {
 public:
     Config(const std::string rootpath) : rootpath_(rootpath) {};
-    //virtual ~Config();
+    virtual ~Config() {};
     inline std::string rootpath() { return rootpath_; };
 
 private:

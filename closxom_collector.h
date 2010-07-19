@@ -11,7 +11,7 @@ namespace closxom {
 class Collector {
 public:
     explicit Collector(const Config& config) : config_(config) {};
-    //virtual ~Collector() {};
+    virtual ~Collector() {};
     inline Config config() { return config_; };
     const std::vector<entry_ptr> GetFilteredEntries(const std::string datetime);
     std::vector<std::string> GetEntryPaths(const std::string rootpath);

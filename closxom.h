@@ -12,7 +12,7 @@ public:
     inline Config config() { return config_; };
     inline void set_flavour(const std::string flavour) { flavour_ = flavour; };
     inline std::string flavour() { return flavour_; };
-    //virtual ~Closxom();
+    virtual ~Closxom() {};
     void CollectEntries(const std::string datetime);
     const std::string RenderEntries();
     void Dispatch();
