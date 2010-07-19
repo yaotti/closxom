@@ -12,10 +12,10 @@ const std::string Closxom::RenderEntries() {
     std::ifstream entry_ifs((rootpath+std::string("../templates/entry.")+this->flavour()).c_str());
     std::stringstream entry_sstream;
     entry_sstream << entry_ifs.rdbuf();
-    const char* entry_format = entry_sstream.str().c_str();
-
     std::string entries_content("");
+    std::string entry_format_string = entry_sstream.str();
     for (int i = 0; i < (int)this->entries().size(); i++) {
+        const char* const entry_format = entry_format_string.c_str(); // ループ外に出すとconstなのに書き換えられてしまう
         Entry entry = *(this->entries()[i]);
         char buf[2048];         // XXX
         sprintf(buf, entry_format, entry.title().c_str(), entry.body().c_str(), entry.modified_datetime().c_str());
