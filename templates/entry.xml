@@ -1,0 +1,8 @@
+<entry>
+  <title>%s</title>
+  <id>tag:example.com,</id>
+  <content>
+    %s
+  </content>
+  <updated>%s</updated>
+</entry>
