@@ -1,7 +1,6 @@
 // Protocol Buffer Definition File
 // see http://code.google.com/p/protobuf/
-//package closxom;
-package closxomp;
+package closxom;
 
 message Entry {
   required string title = 1;

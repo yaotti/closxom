@@ -2,10 +2,10 @@
 
 namespace closxom {
 void Closxom::CollectEntries(const std::string datetime) {
-    Collector* collector = new Collector(this->config());
-    const std::vector<entry_ptr> entries = collector->GetFilteredEntries(datetime);
+    Collector collector(this->config());
+    collector.Init();
+    const std::vector<entry_ptr> entries = collector.GetFilteredEntries(datetime);
     this->set_entries(entries);
-    delete collector;
 }
 
 const std::string Closxom::RenderEntries() {
@@ -17,14 +17,11 @@ const std::string Closxom::RenderEntries() {
     std::string entry_format_string = entry_sstream.str();
     for (int i = 0; i < (int)this->entries().size(); i++) {
         const char* const entry_format = entry_format_string.c_str(); // ループ外に出すとconstなのに書き換えられてしまう
-        Entry *entry = this->entries()[i].get();
+        const Entry entry = *(this->entries()[i]).get();
         char buf[2048];         // XXX
-        sprintf(buf, entry_format, entry->title().c_str(), entry->body().c_str(), entry->modified_datetime().c_str()); // TODO: newline2br
-        delete entry_format;
+        sprintf(buf, entry_format, entry.title().c_str(), entry.body().c_str(), entry.modified_datetime().c_str()); // TODO: newline2br
         entries_content.append(std::string(buf));
-        delete entry;
     }
-
     std::ifstream whole_ifs((rootpath+std::string("../templates/template.")+this->flavour()).c_str());
     std::stringstream whole_sstream;
     whole_sstream << whole_ifs.rdbuf();
@@ -32,7 +29,6 @@ const std::string Closxom::RenderEntries() {
 
     char buf[8192];         // XXX
     sprintf(buf, whole_format, entries_content.c_str());
-    delete whole_format;
     std::string header("content-type:text/"); // content-type
     header.append(this->flavour());
     header.append("\n\n");
@@ -41,7 +37,7 @@ const std::string Closxom::RenderEntries() {
 }
 
 void Closxom::Dispatch() {
-    std::string path_info(getenv("PATH_INFO"));
+    std::string path_info(getenv("PATH_INFO")); // XXX: null pathinfo
     std::string datetime("");
     if (path_info != "/index") {
         for (int i = 1; i < path_info.length(); i++) {
@@ -56,10 +52,8 @@ void Closxom::Dispatch() {
     if (this->flavour() == "") {
         this->set_flavour(std::string("html"));
     }
-    Collector* collector = new Collector(this->config());
     this->CollectEntries(datetime);
     puts(this->RenderEntries().c_str());
-    delete collector;
 }
 
 } // namespace closxom

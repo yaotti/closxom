@@ -5,12 +5,15 @@
 namespace closxom {
 class Config {
 public:
-    Config(const std::string rootpath) : rootpath_(rootpath) {};
+    Config(const std::string storage_type) : storage_type_(storage_type) {};
     virtual ~Config() {};
+    void set_rootpath(std::string rootpath) { rootpath_ = rootpath; }; // XXX: check storage type
+    inline std::string storage_type() { return storage_type_; };
     inline std::string rootpath() { return rootpath_; };
 
 private:
-    const std::string rootpath_;
+    const std::string storage_type_;
+    std::string rootpath_;
 };
 } // namespace closxom
 
