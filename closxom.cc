@@ -10,7 +10,7 @@ void Closxom::CollectEntries(const std::string datetime) {
 
 const std::string Closxom::RenderEntries() {
     std::string rootpath = this->config().rootpath();
-    std::ifstream entry_ifs((rootpath+std::string("../templates/entry.")+this->flavour()).c_str());
+    std::ifstream entry_ifs((rootpath+std::string("templates/entry.")+this->flavour()).c_str());
     std::stringstream entry_sstream;
     entry_sstream << entry_ifs.rdbuf();
     std::string entries_content("");
@@ -22,14 +22,14 @@ const std::string Closxom::RenderEntries() {
         sprintf(buf, entry_format, entry.title().c_str(), entry.body().c_str(), entry.modified_datetime().c_str()); // TODO: newline2br
         entries_content.append(std::string(buf));
     }
-    std::ifstream whole_ifs((rootpath+std::string("../templates/template.")+this->flavour()).c_str());
+    std::ifstream whole_ifs((rootpath+std::string("templates/template.")+this->flavour()).c_str());
     std::stringstream whole_sstream;
     whole_sstream << whole_ifs.rdbuf();
     const char* whole_format = whole_sstream.str().c_str();
 
     char buf[8192];         // XXX
     sprintf(buf, whole_format, entries_content.c_str());
-    std::string header("content-type:text/"); // content-type
+    std::string header("content-type:text/");
     header.append(this->flavour());
     header.append("\n\n");
     const std::string content(header+std::string(buf));

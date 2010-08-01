@@ -11,7 +11,6 @@
 
 namespace closxom {
 void StorageFileSystem::Init() {
-    std::cout << "called" << std::endl;
     entry_file_paths_ = this->GetEntryPaths(this->rootpath());
 }
 
@@ -19,16 +18,13 @@ int StorageFileSystem::EntrySize() {
     return this->entry_file_paths().size();
 }
 
-const Entry* StorageFileSystem::ExtractEntry(int idx) {
-    std::cout << "callend ExtractEntry" << std::endl;
+void StorageFileSystem::ExtractEntry(int idx, Entry* entry) {
     std::string path = this->entry_file_paths()[idx];
     std::ifstream ifs(path.c_str());
     if (ifs == NULL) {
         std::cerr << "Cannot Open File: " << path << std::endl;
         exit(1);
     }
-
-    Entry *entry = new Entry();
 
     std::string line("");
     std::getline(ifs, line);
@@ -44,7 +40,6 @@ const Entry* StorageFileSystem::ExtractEntry(int idx) {
     sprintf(datetime, "%04d%02d%02d%02d%02d%02d", clock->tm_year+1900, clock->tm_mon+1, clock->tm_mday, clock->tm_hour, clock->tm_min, clock->tm_sec);
     //delete clock;
     entry->set_modified_datetime(datetime);
-    return entry;
 }
 
 std::vector<std::string> StorageFileSystem::GetEntryPaths(const std::string path) {

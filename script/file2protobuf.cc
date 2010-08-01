@@ -44,7 +44,7 @@ int main(int argc, char **argv)
         if (!input) {
             cout << argv[2] << ": File not found.  Creating a new file." << endl;
         } else if (!storage.ParseFromIstream(&input)) {
-            cerr << "Failed to parse address book." << endl;
+            cerr << "Failed to parse entry storage." << endl;
             return -1;
         }
     }

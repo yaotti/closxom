@@ -10,11 +10,9 @@ public:
     //virtual ~StorageFileSystem();
     void Init();
     int EntrySize();
-    const Entry* ExtractEntry(int idx);
+    void ExtractEntry(int idx, Entry* entry);
     inline const std::string rootpath() { return rootpath_; };
     inline const std::vector<std::string> entry_file_paths() { return entry_file_paths_; };
-    // test
-    int debug() { return 100; };
 private:
     std::vector<std::string> GetEntryPaths(const std::string path);
     const std::string rootpath_;

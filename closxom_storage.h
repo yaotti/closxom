@@ -11,12 +11,14 @@ public:
     //virtual ~Storage();
     virtual void Init() = 0;
     virtual int EntrySize() = 0;
-    //inline Config config() { return config_; };
-    virtual const Entry* ExtractEntry(int idx) = 0;
-    // test
-    int debug() { return 1; };
+    virtual void ExtractEntry(int idx, Entry* entry) = 0;
 private:
-    //Config config_;
 };
 } // namespace closxom
 #endif
+
+
+
+
+
+

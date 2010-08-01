@@ -9,6 +9,7 @@
 #include "closxom.pb.h"
 #include "closxom_storage.h"
 #include "closxom_storage_filesystem.h"
+#include "closxom_storage_protobuf.h"
 
 namespace closxom {
 typedef std::tr1::shared_ptr<const Entry> entry_ptr;
