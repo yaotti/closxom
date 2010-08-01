@@ -1,0 +1,14 @@
+// Protocol Buffer Definition File
+// see http://code.google.com/p/protobuf/
+package closxom;
+
+message Entry {
+  required string title = 1;
+  required string body = 2;
+  required string modified_datetime = 3;
+}
+
+// My Entries file is just one of these.
+message EntryStorage {
+  repeated Entry entry = 1;
+}

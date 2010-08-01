@@ -3,6 +3,8 @@ http://coderepos.org/share/wiki/BlosxomClones
 - no plugin system
 - using no boost library
 
+you need to install protocol buffer http://code.google.com/p/protobuf/
+
 
 download and exec
 $ make
