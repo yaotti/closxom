@@ -9,6 +9,7 @@ static string rootpath("/Users/hiroshige/active/intern-prep/p/closxom/");
 int main(int argc, char **argv)
 {
     string storage_type = "filesystem";
+    // to use protobuf, exec "./script/file2protobuf.o path/to/file entries.pb"
     //string storage_type = "protobuf";
 
     Config config(storage_type);

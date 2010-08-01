@@ -6,7 +6,7 @@ http://coderepos.org/share/wiki/BlosxomClones
 you need to install protocol buffer http://code.google.com/p/protobuf/
 
 
-download and exec
+download, edit "rootpath" in hello.cc and exec
 $ make
 
 if you are MacOSX user then do this
@@ -15,3 +15,7 @@ and visit
 http://localhost/cgi-bin/closxom.cgi/
 http://localhost/cgi-bin/closxom.cgi/2010.html
 http://localhost/cgi-bin/closxom.cgi/2010.xml
+
+To use protocolbuffer as a storage, do
+$ g++ -I. -o script/file2protobuf.o -O2 closxom.pb.cc script/file2protobuf.cc `pkg-config --cflags --libs protobuf`
+$ ./script/file2protobuf.o path/to/file entries.pb
