@@ -4,7 +4,6 @@
 #include <tr1/memory>
 
 #include "closxom_config.h"
-#include "closxom_entry.h"
 
 #include "closxom.pb.h"
 #include "closxom_storage.h"

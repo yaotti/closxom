@@ -16,9 +16,3 @@ private:
 };
 } // namespace closxom
 #endif
-
-
-
-
-
-

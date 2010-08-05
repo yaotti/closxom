@@ -1,3 +1,6 @@
+#include <fstream>
+#include <sstream>
+
 #include "closxom.h"
 
 namespace closxom {
@@ -40,7 +43,7 @@ void Closxom::Dispatch() {
     std::string path_info(getenv("PATH_INFO")); // XXX: null pathinfo
     std::string datetime("");
     if (path_info != "/index") {
-        for (int i = 1; i < path_info.length(); i++) {
+        for (int i = 1; i < static_cast<int>(path_info.length()); i++) {
             if (path_info[i] == '/') continue;
             if (path_info[i] == '.') { // flavour
                 this->set_flavour(path_info.substr(i+1, path_info.length()-1));

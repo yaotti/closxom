@@ -3,7 +3,7 @@
 
 #include "closxom_collector.h"
 
-
+class Storage;
 namespace closxom {
 class EntryDateSorter : public std::binary_function<entry_ptr, entry_ptr, bool> {
 public:
@@ -25,7 +25,6 @@ void Collector::Init() {
 
 const std::vector<entry_ptr> Collector::GetFilteredEntries(const std::string datetime) {
     std::vector<entry_ptr> entries;
-    std::cout << "Entry Size: " << this->storage()->EntrySize() << std::endl;
     for (int i = 0; i < this->storage()->EntrySize(); i++) {
         Entry* entry = new Entry();
         this->storage()->ExtractEntry(i, entry);
